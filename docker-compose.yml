@@ -1,0 +1,12 @@
+version: '3.5'
+
+services:
+  backend:
+    container_name: backend
+    image: backend:1.0.0
+    command: [python, backend.py]
+
+  ui:
+    container_name: interface
+    image: interface:1.0.0
+    command: [python, interface.py]
