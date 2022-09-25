@@ -11,7 +11,7 @@ WORKDIR /home/src
 COPY interface/requirements.txt requirements.txt
 RUN pip install -r requirements.txt
 
-COPY src .
+COPY interface/src .
 COPY protos/backend.proto .
 
 RUN python -m grpc_tools.protoc -I. --python_out=. --grpc_python_out=. ./backend.proto
