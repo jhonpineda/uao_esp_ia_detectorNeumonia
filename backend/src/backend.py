@@ -33,7 +33,11 @@ class BackendService(backend_pb2_grpc.BackendServicer):
 
 
 def serve():
-    server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
+    maxMsgLength = 256 * 1024 * 1024
+    options = [('grpc.max_message_length', maxMsgLength),('grpc.max_send_message_length', maxMsgLength),('grpc.max_receive_message_length', maxMsgLength)]
+    server = grpc.server(futures.ThreadPoolExecutor(max_workers=10), options = options)
+    
+    #server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     backend_pb2_grpc.add_BackendServicer_to_server(BackendService(), server)
     server.add_insecure_port("[::]:50051")
     server.start()

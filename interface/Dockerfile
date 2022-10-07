@@ -13,5 +13,7 @@ RUN pip install -r requirements.txt
 
 COPY interface/src .
 COPY protos/backend.proto .
+COPY protos/inference.proto .
 
 RUN python -m grpc_tools.protoc -I. --python_out=. --grpc_python_out=. ./backend.proto
+RUN python -m grpc_tools.protoc -I. --python_out=. --grpc_python_out=. ./inference.proto

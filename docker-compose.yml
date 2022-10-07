@@ -8,8 +8,19 @@ services:
       context: ./
       dockerfile: backend/Dockerfile
     volumes:
-      - /Users/arturo.duquem/Downloads:/home/images
+      - //d/tmp:/home/images
     command: [python, backend.py]
+
+  inference:
+    container_name: inference
+    image: inference:1.0.0
+    build:
+      context: ./
+      dockerfile: inference/Dockerfile
+    volumes:
+      - //d/tmp:/home/images
+    command: [python, inference.py]
+
 
   ui:
     container_name: interface
@@ -19,7 +30,7 @@ services:
       dockerfile: interface/Dockerfile
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix
-      - /Users/arturo.duquem/Downloads:/home/images
+      - //d/tmp:/home/images
     environment:
-      - DISPLAY=192.168.1.5:0
+      - DISPLAY=host.docker.internal:0
     command: [python, interface.py]
